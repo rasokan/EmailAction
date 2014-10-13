@@ -16,7 +16,7 @@ public class EmailAction {
 		// TODO Auto-generated method stub
 		
 		final String username = "rasokantest@gmail.com";
-		final String password = "aliens-20845639";
+		final String password = "********";
  
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
