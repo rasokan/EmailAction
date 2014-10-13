@@ -68,7 +68,7 @@ public class EmailActionWithAttachment {
 		String to = "rasokantest@gmail.com";
 		String from = "rasokantest@gmail.com";
 		final String username = "rasokantest@gmail.com";// change accordingly
-		final String password = "aliens-20845639";// change accordingly
+		final String password = "XXXXXXXXX";// change accordingly
 
 		// Get the Session object.
 		Session session = Session.getInstance(props,
