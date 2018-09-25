@@ -1,0 +1,48 @@
+package com.learn;
+
+import java.util.*;
+
+public class DuplicateRemovalUnsortedArray {
+
+	private static int[] inputArray = new int[] {1,1,1 };
+	private static int[] resultArray = new int[inputArray.length -1];
+
+	public static void main(String a[]) {
+		
+		System.out.println("Length"+inputArray.length);
+		
+		int[] unduplicateArry = new int[inputArray.length - 1];
+
+		unduplicateArry = removeDuplicates(inputArray);
+
+		System.out.println("After Duplicate Removal");
+		
+		for (Integer element : unduplicateArry)
+			System.out.println(element);
+
+	}
+
+	public static int[] removeDuplicates(int arr[]) {
+
+		Arrays.sort(arr);
+
+		for (Integer element : arr)
+			System.out.println(element);
+
+		Integer j = 0;
+
+		for (int i = 0; i < arr.length - 1; i++) {
+
+			if (arr[i] != arr[i + 1]) {
+				resultArray[j] = arr[i];
+				j++;
+			}
+		}
+
+		resultArray[j] = arr[arr.length - 1];
+
+		return resultArray;
+
+	}
+
+}
