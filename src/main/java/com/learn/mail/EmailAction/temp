@@ -1,48 +1,43 @@
-package com.learn;
+public class PermutationsOfString {
 
-import java.util.*;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
-public class DuplicateRemovalUnsortedArray {
-
-	private static int[] inputArray = new int[] {1,1,1 };
-	private static int[] resultArray = new int[inputArray.length -1];
-
-	public static void main(String a[]) {
-		
-		System.out.println("Length"+inputArray.length);
-		
-		int[] unduplicateArry = new int[inputArray.length - 1];
-
-		unduplicateArry = removeDuplicates(inputArray);
-
-		System.out.println("After Duplicate Removal");
-		
-		for (Integer element : unduplicateArry)
-			System.out.println(element);
+		printPermutations("agi", "");
 
 	}
 
-	public static int[] removeDuplicates(int arr[]) {
+	public static String swapCharacter(String inputChar) {
 
-		Arrays.sort(arr);
+		char firstChar = inputChar.charAt(0);
+		char secondChar = inputChar.charAt(1);
+		StringBuilder sb = new StringBuilder();
+		sb.append(secondChar).append(firstChar).append(inputChar.substring(2));
+		return sb.toString();
 
-		for (Integer element : arr)
-			System.out.println(element);
+	}
 
-		Integer j = 0;
+	private static void printPermutations(String input, String output) {
 
-		for (int i = 0; i < arr.length - 1; i++) {
+		if (input.length() == 0) {
 
-			if (arr[i] != arr[i + 1]) {
-				resultArray[j] = arr[i];
-				j++;
-			}
+			System.out.println(output);
+
+			return;
 		}
 
-		resultArray[j] = arr[arr.length - 1];
+		String smallString = input.substring(1);
 
-		return resultArray;
+		printPermutations(smallString, output.concat(new StringBuilder().append(input.charAt(0)).toString()));
+
+		if (input.length() == 2) {
+
+			String newInpputString = swapCharacter(input);
+
+			printPermutations(newInpputString, output);
+		}
 
 	}
 
 }
+
