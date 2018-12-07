@@ -1,43 +1,89 @@
-public class PermutationsOfString {
+package com.learn.cn;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class WordBreak {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		printPermutations("agi", "");
+		Scanner s = new Scanner(System.in);
 
-	}
+		List<String> inputStringList = new ArrayList<String>();
 
-	public static String swapCharacter(String inputChar) {
+		Map<Character, TreeSet<String>> mappingFirstCharByString = new HashMap<>();
 
-		char firstChar = inputChar.charAt(0);
-		char secondChar = inputChar.charAt(1);
-		StringBuilder sb = new StringBuilder();
-		sb.append(secondChar).append(firstChar).append(inputChar.substring(2));
-		return sb.toString();
+		int n = s.nextInt();
 
-	}
+		for (int i = 0; i < n; i++) {
 
-	private static void printPermutations(String input, String output) {
+			String str = s.next();
 
-		if (input.length() == 0) {
+			inputStringList.add(str);
 
-			System.out.println(output);
+			if (mappingFirstCharByString.containsKey(str.charAt(0))) {
 
-			return;
+				TreeSet<String> listOfString = mappingFirstCharByString.get(str.charAt(0));
+				listOfString.add(str);
+				mappingFirstCharByString.put(str.charAt(0), listOfString);
+
+			} else {
+
+				TreeSet<String> listOfString = new TreeSet();
+				listOfString.add(str);
+
+				mappingFirstCharByString.put(str.charAt(0), listOfString);
+			}
+
 		}
 
-		String smallString = input.substring(1);
+		String inputSentence = s.next();
 
-		printPermutations(smallString, output.concat(new StringBuilder().append(input.charAt(0)).toString()));
+		List<String> outputSentenceList = new ArrayList();
 
-		if (input.length() == 2) {
+		for (int i = 0; i < inputSentence.length(); i++) {
 
-			String newInpputString = swapCharacter(input);
+			TreeSet<String> matchedStringList = mappingFirstCharByString.get(inputSentence.charAt(i));
 
-			printPermutations(newInpputString, output);
+			if (matchedStringList!=null && matchedStringList.size() >= 1) {
+
+				String tempSentence = inputSentence.substring(i, inputSentence.length());
+
+				StringBuilder outputSentence = new StringBuilder();
+
+				for (String matchedString : matchedStringList) {
+
+					int k = 0;
+
+					for (; k < matchedString.length(); k++) {
+
+						if (tempSentence.charAt(k) == matchedString.charAt(k)) {
+
+						}
+
+						else {
+
+							break;
+						}
+
+					}
+
+					if (k == matchedString.length()) {
+
+						outputSentence.append(matchedString).append(" ");
+
+					}
+
+				}
+
+			}
+
 		}
 
 	}
 
 }
-
