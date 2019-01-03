@@ -1,89 +1,91 @@
-package com.learn.cn;
+package com.learn.codingninjas.dynamicprogramming;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeSet;
 
-public class WordBreak {
+public class KadaneAlgorithm {
 
 	public static void main(String[] args) {
 
 		Scanner s = new Scanner(System.in);
+		int noOfTestCasee = s.nextInt();
 
-		List<String> inputStringList = new ArrayList<String>();
-
-		Map<Character, TreeSet<String>> mappingFirstCharByString = new HashMap<>();
-
-		int n = s.nextInt();
-
-		for (int i = 0; i < n; i++) {
+		for (int testCase = 1; testCase <= noOfTestCasee; testCase++) {
 
 			String str = s.next();
 
-			inputStringList.add(str);
+			int[] inputArray = new int[str.length()];
 
-			if (mappingFirstCharByString.containsKey(str.charAt(0))) {
+			for (int i = 0; i < str.length(); i++) {
 
-				TreeSet<String> listOfString = mappingFirstCharByString.get(str.charAt(0));
-				listOfString.add(str);
-				mappingFirstCharByString.put(str.charAt(0), listOfString);
+				if (str.charAt(i) - '0' == 34) {
 
-			} else {
-
-				TreeSet<String> listOfString = new TreeSet();
-				listOfString.add(str);
-
-				mappingFirstCharByString.put(str.charAt(0), listOfString);
-			}
-
-		}
-
-		String inputSentence = s.next();
-
-		List<String> outputSentenceList = new ArrayList();
-
-		for (int i = 0; i < inputSentence.length(); i++) {
-
-			TreeSet<String> matchedStringList = mappingFirstCharByString.get(inputSentence.charAt(i));
-
-			if (matchedStringList!=null && matchedStringList.size() >= 1) {
-
-				String tempSentence = inputSentence.substring(i, inputSentence.length());
-
-				StringBuilder outputSentence = new StringBuilder();
-
-				for (String matchedString : matchedStringList) {
-
-					int k = 0;
-
-					for (; k < matchedString.length(); k++) {
-
-						if (tempSentence.charAt(k) == matchedString.charAt(k)) {
-
-						}
-
-						else {
-
-							break;
-						}
-
-					}
-
-					if (k == matchedString.length()) {
-
-						outputSentence.append(matchedString).append(" ");
-
-					}
-
+					inputArray[i] = -1;
 				}
 
+				if (str.charAt(i) - '0' == 27) {
+
+					inputArray[i] = 1;
+				}
+			}
+
+			System.out.println(maxSumSubArray(inputArray));
+
+		}
+	}
+
+	private static int maxSumSubArray(int inputArray[]) {
+
+		int max_so_far = inputArray[0];
+
+		int max_Ending_here = 0;
+
+		// Position to get the Sub Array Maximum
+		int start = 0;
+		int end = 0;
+
+		int s = 0;
+
+		for (int i = 0; i < inputArray.length; i++) {
+
+			max_Ending_here = max_Ending_here + inputArray[i];
+
+			if (max_so_far < max_Ending_here) {
+
+				max_so_far = max_Ending_here;
+
+				start = s;
+				end = i;
+			}
+
+			if (max_Ending_here < 0) {
+
+				max_Ending_here = 0;
+				s = i + 1;
 			}
 
 		}
 
+		int sum = max_so_far;
+
+		for (int j = 0; j < start; j++) {
+
+			if (inputArray[j] < 0) {
+
+				sum = sum + Math.abs(inputArray[j]);
+			}
+
+		}
+
+		for (int k = end + 1; k < inputArray.length; k++) {
+
+			if (inputArray[k] < 0) {
+
+				sum = sum + Math.abs(inputArray[k]);
+			}
+
+		}
+
+		return sum;
 	}
 
 }
